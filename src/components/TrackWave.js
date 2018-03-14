@@ -16,31 +16,25 @@ export default class TrackWave extends React.Component {
     analyser: PropTypes.object,
     name: PropTypes.string,
     soundSource: PropTypes.object,
+    playing: PropTypes.bool,
   };
 
   componentDidMount = () => {
     this.getAudioFile('/releases/'+this.props.name);
   }
 
-  playSound = () => {
-    // this.state.soundSource.start(0);
-  }
-
-  stopSound = () => {
-    // this.state.soundSource.stop(0);
-  }
-
   getAudioFile = (_fileURL) => {
 
     const {
       audioCtx,
-      analyser
+      analyser,
+      soundSource
     } = this.props;
     const distortion = audioCtx.createWaveShaper();
     const gainNode = audioCtx.createGain();
     const biquadFilter = audioCtx.createBiquadFilter();
     const convolver = audioCtx.createConvolver();
-    const soundSource = audioCtx.createBufferSource();
+    // const soundSource = audioCtx.createBufferSource();
     const ajaxRequest = new XMLHttpRequest();
           ajaxRequest.addEventListener("progress", this.updateProgress);
           ajaxRequest.open('GET', _fileURL, true);
@@ -59,8 +53,6 @@ export default class TrackWave extends React.Component {
                 convolver.connect(gainNode);
                 gainNode.connect(audioCtx.destination);
                 soundSource.connect(audioCtx.destination);
-                // soundSource.start(0);
-                // play.style.opacity = 1;
               }
             )
             .catch( function(err) { console.log('Error with decoding audio data: ' + err);})
@@ -74,11 +66,11 @@ export default class TrackWave extends React.Component {
     const canvas = this.canvasRef
     const canvasCtx = this.canvasRef.getContext('2d');
     const {analyser} = this.props;
+          analyser.fftSize = 2048;
 
     const WIDTH = canvas.width;
     const HEIGHT = canvas.height;
 
-    analyser.fftSize = 2048;
     const bufferLength = analyser.fftSize;
     const dataArray = new Uint8Array(bufferLength);
 
@@ -125,7 +117,6 @@ export default class TrackWave extends React.Component {
   }
 
   render() {
-    console.log(this.state)
     return (
       <canvas
         ref={me => this.canvasRef = me}
