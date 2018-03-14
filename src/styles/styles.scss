@@ -5,27 +5,51 @@ $vin-red: #ff0000;
 
 /* Styles */
 body {
-  font: 14px 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size : 13px;
+  /* font-size: 1.2vw; */
   line-height: 1.4em;
   color: #4d4d4d;
-  min-width: 230px;
-  max-width: 550px;
-  margin: 0 auto;
   -webkit-font-smoothing: antialiased;
   -moz-font-smoothing: antialiased;
-  font-smoothing: antialiased;
   font-weight: 300;
+  transition: opacity 1s;
 }
 
-td {
-	padding: 12px;
+h1 {
+  font-size: 1em;
+  letter-spacing: -0.05em;
+  color: #19f;
+  margin-bottom: -5px;
 }
 
 h2 {
-	color: $vin-blue;
+  color: #138;
+  font-size: 1em;
+  letter-spacing: -0.05em;
+  margin-top: 0;
 }
 
-.savings { color: $vin-green; }
-.loss { color: $vin-red; }
-input.small { width: 46px; }
-td.fuel-savings-label { width: 175px; }
+.tracks {
+  margin-top: 3em;
+  margin-right: 1em;
+}
+
+.track {
+  display: flex;
+  flex-direction: row;
+  margin-bottom:2em;
+}
+.togglePlay {
+  cursor: pointer;
+  padding-right: 0.5em;
+  line-height: 1.6em;
+  font-weight: 300;
+  // opacity: 0;
+  transition: opacity 1s;
+}
+
+canvas {
+  // width: 5%;
+  height: 30px;
+}

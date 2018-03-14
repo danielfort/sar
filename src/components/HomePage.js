@@ -1,18 +1,23 @@
+/* eslint-disable no-console */
 import React from 'react';
-import { Link } from 'react-router-dom';
+import TrackRow from './TrackRow.js';
+
 
 const HomePage = () => {
-  return (
-    <div>
-      <h1>React Slingshot</h1>
+  const tracks = [
+    'mm_001.m4a',
+    'mm_002.m4a',
+    'mm_003.m4a',
+    'preaelude.m4a'
+  ]
 
-      <h2>Get Started</h2>
-      <ol>
-        <li>Review the <Link to="/fuel-savings">demo app</Link></li>
-        <li>Remove the demo and start coding: npm run remove-demo</li>
-      </ol>
+  return (
+    <div className='tracks'>
+      {
+        tracks.map((name,i) => <TrackRow key={i} trackName={name}/>)
+      }
     </div>
-  );
+  )
 };
 
 export default HomePage;
