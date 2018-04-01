@@ -11,7 +11,8 @@ export default class TrackRow extends React.Component {
     super(props);
     this.state = {
       playing: false,
-      auContext: undefined
+      auContext: undefined,
+      started: false,
     };
   }
 
@@ -38,9 +39,25 @@ export default class TrackRow extends React.Component {
   }
 
   togglePlay = () => {
-    this.setState(previousState => ({ playing: !previousState.playing }));
-    const {playing, soundSource} = this.state;
-    playing ? soundSource.stop(0) : soundSource.start(0);
+    const {
+      playing,
+      soundSource,
+      auContext,
+      started
+    } = this.state;
+
+    if (!started) soundSource.start(0);
+
+    this.setState(previousState => ({
+      playing: !previousState.playing,
+      started: true,
+    }));
+
+    if(playing) {
+      auContext.suspend();
+    } else {
+      auContext.resume();
+    }
   }
 
   render() {
